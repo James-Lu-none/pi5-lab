@@ -9,7 +9,7 @@ services:
     depends_on:
       - nginx-proxy
       - acme-companion
-      
+
   loki:
     image: grafana/loki:latest
     env_file: 
@@ -36,6 +36,8 @@ services:
     env_file: 
       - "setup/.env"
       - "setup/coder.env"
+    volumes:
+      - coder_data:/home/coder
     networks:
       - nginx-proxy
     depends_on:
