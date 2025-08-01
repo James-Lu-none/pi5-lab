@@ -1,0 +1,48 @@
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    env_file: 
+      - "setup/.env"
+      - "setup/prometheus.env"
+    networks:
+      - nginx-proxy
+    depends_on:
+      - nginx-proxy
+      - acme-companion
+      
+  loki:
+    image: grafana/loki:latest
+    env_file: 
+      - "setup/.env"
+      - "setup/loki.env"
+    networks:
+      - nginx-proxy
+    depends_on:
+      - nginx-proxy
+      - acme-companion
+
+  grafana:
+    image: grafana/grafana:latest
+    env_file: 
+      - "setup/.env"
+      - "setup/grafana.env"
+    networks:
+      - nginx-proxy
+    depends_on:
+      - nginx-proxy
+      - acme-companion
+  coder:
+    image: codercom/code-server
+    env_file: 
+      - "setup/.env"
+      - "setup/coder.env"
+    networks:
+      - nginx-proxy
+    depends_on:
+      - nginx-proxy
+      - acme-companion
+volumes:
+  prometheus_data:
+  grafana_data:
+  loki_data:
+  coder_data:
