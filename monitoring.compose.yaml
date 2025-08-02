@@ -4,6 +4,10 @@ services:
     env_file: 
       - "setup/.env"
       - "setup/prometheus.env"
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus_data:/prometheus
     networks:
       - nginx-proxy
     depends_on:
@@ -12,6 +16,10 @@ services:
 
   loki:
     image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    volumes:
+      - loki_data:/loki
     env_file: 
       - "setup/.env"
       - "setup/loki.env"
@@ -26,6 +34,8 @@ services:
     env_file: 
       - "setup/.env"
       - "setup/grafana.env"
+    volumes:
+      - grafana_data:/var/lib/grafana
     networks:
       - nginx-proxy
     depends_on:
