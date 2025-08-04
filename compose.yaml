@@ -16,9 +16,9 @@ services:
          - "nginx-vhost:/etc/nginx/vhost.d"
          - "html:/usr/share/nginx/html"
          - "certs:/etc/nginx/certs"
+
     acme-companion:
         image: nginxproxy/acme-companion
-        restart: always
         container_name: acme-companion
         volumes:
          - "acme:/etc/acme.sh"
@@ -32,6 +32,8 @@ services:
         env_file: "setup/.env"
         depends_on:
             - nginx-proxy
+        restart: always
+
 networks:
     nginx-proxy:
 volumes:

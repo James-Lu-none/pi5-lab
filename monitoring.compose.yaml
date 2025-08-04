@@ -13,6 +13,7 @@ services:
     depends_on:
       - nginx-proxy
       - acme-companion
+    restart: always
 
   loki:
     image: grafana/loki:latest
@@ -28,6 +29,7 @@ services:
     depends_on:
       - nginx-proxy
       - acme-companion
+    restart: always
 
   grafana:
     image: grafana/grafana:latest
@@ -41,6 +43,8 @@ services:
     depends_on:
       - nginx-proxy
       - acme-companion
+    restart: always
+
   coder:
     image: codercom/code-server
     env_file: 
@@ -53,6 +57,8 @@ services:
     depends_on:
       - nginx-proxy
       - acme-companion
+    restart: always
+    
 volumes:
   prometheus_data:
   grafana_data:
