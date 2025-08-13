@@ -58,9 +58,27 @@ services:
       - nginx-proxy
       - acme-companion
     restart: always
-    
+
+  influxdb:
+    image: influxdb:latest
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+      - influxdb_config:/etc/influxdb2
+    env_file:
+      - "setup/influxdb.env"
+    networks:
+      - nginx-proxy
+    depends_on:
+      - nginx-proxy
+      - acme-companion
+    restart: unless-stopped
+   
 volumes:
   prometheus_data:
   grafana_data:
   loki_data:
   coder_data:
+  influxdb_data:
+  influxdb_config:
