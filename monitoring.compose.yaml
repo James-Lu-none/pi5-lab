@@ -74,7 +74,25 @@ services:
       - nginx-proxy
       - acme-companion
     restart: unless-stopped
-   
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch-wolfi:9.1.3
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    env_file:
+      - "setup/elasticsearch.env"
+    networks:
+      - nginx-proxy
+    depends_on:
+      - nginx-proxy
+      - acme-companion
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: "unless-stopped"
 volumes:
   prometheus_data:
   grafana_data:
@@ -82,3 +100,4 @@ volumes:
   coder_data:
   influxdb_data:
   influxdb_config:
+  elasticsearch_data:
