@@ -75,8 +75,10 @@ services:
       - acme-companion
     restart: unless-stopped
   elasticsearch:
-    container_name: elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch-wolfi:9.1.3
+    ports:
+      - "9200:9200"
+      - "9300:9300"
     volumes:
       - elasticsearch_data:/usr/share/elasticsearch/data
     env_file:
@@ -93,6 +95,18 @@ services:
       retries: 5
       start_period: 30s
     restart: "unless-stopped"
+  kibana:
+    image: docker.elastic.co/kibana/kibana:9.1.3
+    ports:
+      - "5601:5601"
+    env_file:
+      - "setup/kibana.env"
+    networks:
+      - nginx-proxy
+    depends_on:
+      - nginx-proxy
+      - acme-companion
+      - elasticsearch
 volumes:
   prometheus_data:
   grafana_data:
