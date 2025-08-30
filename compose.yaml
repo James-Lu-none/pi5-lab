@@ -19,7 +19,6 @@ services:
 
     acme-companion:
         image: nginxproxy/acme-companion
-        container_name: acme-companion
         volumes:
          - "acme:/etc/acme.sh"
          - /var/run/docker.sock:/var/run/docker.sock:ro
