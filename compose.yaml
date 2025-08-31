@@ -3,7 +3,7 @@ include:
 
 services:
     nginx-proxy:
-        image: nginxproxy/nginx-proxy
+        image: nginxproxy/nginx-proxy:alpine
         restart: "always" # Always restart container
         ports:
          - "80:80" # Port mappings in format host:container
