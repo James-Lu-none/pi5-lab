@@ -1,0 +1,20 @@
+services:
+  telegraf:
+    image: telegraf:latest
+    container_name: pi5-lab-telegraf
+    privileged: true
+    volumes:
+      - ./setup/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /run/udev:/run/udev:ro
+      - /:/hostfs:ro
+    environment:
+      - HOST_MOUNT_PREFIX=/hostfs
+      - HOST_PROC=/hostfs/proc
+      - HOST_SYS=/hostfs/sys
+      - HOST_DEV=/hostfs/dev
+    networks:
+      - nginx-proxy
+    depends_on:
+      - influxdb
+    restart: unless-stopped

@@ -1,5 +1,6 @@
 include:
   - ./monitoring.compose.yaml
+  - ./telegraf.compose.yaml
 
 services:
     nginx-proxy:
