@@ -9,6 +9,7 @@ services:
       - /run/udev:/run/udev:ro
       - /:/hostfs:ro
     environment:
+      - PROC_ROOT=/hostfs/proc # for inputs/nstat
       - HOST_MOUNT_PREFIX=/hostfs
       - HOST_PROC=/hostfs/proc
       - HOST_SYS=/hostfs/sys
