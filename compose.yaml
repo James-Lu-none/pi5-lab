@@ -1,6 +1,7 @@
 include:
-  - ./monitoring.compose.yaml
-  - ./telegraf.compose.yaml
+#   - ./monitoring.compose.yaml
+#   - ./telegraf.compose.yaml
+  - ./ide.compose.yaml
   - ./remote-backends.compose.yaml
 
 services:

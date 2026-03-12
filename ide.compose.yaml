@@ -1,0 +1,16 @@
+services:
+  coder:
+    image: codercom/code-server
+    env_file: 
+      - "setup/.env"
+      - "setup/coder.env"
+    volumes:
+      - coder_data:/home/coder
+    networks:
+      - nginx-proxy
+    depends_on:
+      - nginx-proxy
+      - acme-companion
+    restart: always
+volumes:
+  coder_data:
