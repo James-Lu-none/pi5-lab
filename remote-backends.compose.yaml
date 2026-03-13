@@ -9,6 +9,24 @@ services:
     - "com.github.nginx-proxy.nginx.proxy=false"
     depends_on:
       - wol-api
+  
+  pve-core-dummy:
+    image: nginx:alpine
+    env_file:
+      - "setup/pve-core.env"
+    networks:
+      - nginx-proxy
+    labels:
+    - "com.github.nginx-proxy.nginx.proxy=false"
+  
+  pve-super-dummy:
+    image: nginx:alpine
+    env_file:
+      - "setup/pve-super.env"
+    networks:
+      - nginx-proxy
+    labels:
+    - "com.github.nginx-proxy.nginx.proxy=false"
 
   wol-api:
     build: ./api
